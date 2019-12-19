@@ -52,8 +52,8 @@ function throttle(func, wait, options) {
   };
 };
 
-export const Cart = ({session}) => {
-  const { dispatch, cart, user, order, ticket, product } = useStoreon('cart', 'user', 'order', 'ticket', 'product');
+export const Cart = ({session, lang}) => {
+  const { dispatch, cart, user, order, ticket, product, i18n } = useStoreon('cart', 'user', 'order', 'ticket', 'product', 'i18n');
   const { fullName, email, phone } = user;
   const [ isShowPromocode, setShowPromocode ] = useState(false);
   const [ sale, setSale ] = useState(0);
@@ -188,8 +188,9 @@ export const Cart = ({session}) => {
 
   useEffect(() => {
     dispatch('cart/get', session);
+    dispatch('i18n/load', lang);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+  }, [session, lang]);
   
   useEffect(() => {
     if (paid.id && paid.hash) {
@@ -212,13 +213,14 @@ export const Cart = ({session}) => {
         <ul className='list'>{ products() }</ul>
         <div className='aside'>
           <div className="aside__blank">
-            <span className = 'caption caption_l'>Ваш заказ</span>
+            <span className = 'caption caption_l'>{ i18n[ lang ].yourOrder }</span>
             <ul className='listPreview'>{ productsPreview() }</ul>
           </div>
-
-          <div className = 'asideSeparator' ><div className="asideSeparator__line"></div></div>
-
+          <div className='asideSeparator'>
+            <div className="asideSeparator__line" />
+          </div>
           <div className="aside__blank">
+            <input type='hidden' name='lang' value={ lang } />
             <div className='cart__user'>
               {
                 [
@@ -290,7 +292,7 @@ export const Cart = ({session}) => {
               <div className='product__inner'>
                 <div className='colDesktop'>
                   <label>
-                    <span className = 'caption'>Дата поездки</span>
+                    <span className='caption'>Дата поездки</span>
                     <input
                       readOnly
                       type = 'text'
@@ -303,28 +305,22 @@ export const Cart = ({session}) => {
                       inline
                       calendarClassName='calendar'
                       dateFormat='dd MMMM yyyy'
-                      // includeDates={ availableDates }
                       locale='ru-RU'
                       selected={ new Date() }
                     />
                   </div>
                 </div>
-                <div className='colDesktop'>
-                  {/* <Directions {...props} />
-                  { date && <Time {...props} /> }
-                  { direction && <Tickets {...props} /> } */}
-                </div>
+                <div className='colDesktop'></div>
               </div>
             </div>
           </li>
         </ul>
         <div className='aside'>
           <div className="aside__blank">
-            <span className = 'caption caption_l'>Ваш заказ</span>
-            {/* <ul className='listPreview'>{ productsPreview() }</ul> */}
+            <span className='caption caption_l'>Ваш заказ</span>
           </div>
 
-          <div className = 'asideSeparator' ><div className="asideSeparator__line"></div></div>
+          <div className='asideSeparator'><div className="asideSeparator__line"></div></div>
 
           <div className="aside__blank">
             <div className='cart__user'>

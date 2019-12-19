@@ -4,10 +4,15 @@ import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 
 const session = new URL(window.location.href).searchParams.get('session') || 'test-test-test';
+const root = document.getElementById('root');
+const lang = root.getAttribute('lang');
 
 render(
-  <App session={session} />,
-  document.getElementById('root')
+  <App
+    session={session}
+    lang={lang}
+  />,
+  root
 );
 
 // If you want your app to work offline and load faster, you can change

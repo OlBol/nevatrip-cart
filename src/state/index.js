@@ -9,6 +9,7 @@ import event from './event';
 import ticket from './ticket';
 import ticketCategory from './ticketCategory';
 import user from './user';
+import i18n from './i18n';
 
 export const store = createStore(
   [
@@ -20,6 +21,7 @@ export const store = createStore(
     ticket,
     ticketCategory,
     user,
+    i18n,
     process.env.NODE_ENV !== 'production' && require('storeon/devtools')
   ]
 );

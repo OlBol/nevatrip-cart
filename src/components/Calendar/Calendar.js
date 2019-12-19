@@ -72,9 +72,9 @@ export const Calendar = ( { cartKey, productId } ) => {
         <span className = 'caption'>Дата поездки</span>
         <input
           readOnly
-          type = 'text'
-          value = { moment( date ).format( 'LL' ) }
-          className = 'input input_calendar'
+          type='text'
+          value={ moment( date ).format( 'LL' ) }
+          className='input input_calendar'
         />
       </label>
       <div className='calendarWrapper'>
